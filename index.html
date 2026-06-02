@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ada Alkım Açıkyol — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #07080f;
+  --bg2:       #0b0c18;
+  --bg3:       #0f1020;
+  --surface:   #0e0f1c;
+  --border:    rgba(180,160,255,0.1);
+  --border2:   rgba(180,160,255,0.2);
+  --purple:    #bba8fc;
+  --purple-dim:#9170e8;
+  --purple-soft:rgba(167,139,250,0.1);
+  --purple-glow:rgba(167,139,250,0.22);
+  --violet:    #ddd6fe;
+  --violet-soft:rgba(221,214,254,0.07);
+  --text:      #e8e4f4;
+  --text2:     #9d94bc;
+  --text3:     #524f6e;
+  --white:     #f4f2fa;
+  --green:     #4ade80;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── BACKGROUND ── */
+.bg-layer {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+}
+.bg-layer::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 0%, rgba(167,139,250,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 35% at 90% 90%, rgba(167,139,250,0.06) 0%, transparent 55%);
+}
+.bg-layer::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(148,163,210,0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 30%, transparent 80%);
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 62px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 64px;
+  background: rgba(7,8,15,0.82);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Fira Code', monospace;
+  font-size: 13px; font-weight: 500;
+  color: var(--text2); text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+.nav-logo:hover { color: var(--white); }
+.nav-logo .hi { color: var(--purple); }
+
+.nav-links {
+  display: flex; align-items: center; gap: 8px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px; font-weight: 500;
+  color: var(--text3); text-decoration: none;
+  padding: 6px 14px; border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-links a:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.05);
+}
+
+.nav-badge {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(74,222,128,0.08);
+  border: 1px solid rgba(74,222,128,0.2);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--green);
+  letter-spacing: 0.3px;
+}
+.nav-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--green); border-radius: 50%;
+  box-shadow: 0 0 6px var(--green);
+  animation: pulse 2.5s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* ── HERO ── */
+#hero {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 100px 64px 80px;
+  max-width: 1160px; margin: 0 auto;
+}
+
+.hero-content { max-width: 720px; }
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border2);
+  border-radius: 100px; padding: 6px 16px;
+  font-family: 'Fira Code', monospace;
+  font-size: 12px; color: var(--text2);
+  letter-spacing: 0.5px; margin-bottom: 36px;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-tag span { color: var(--violet); }
+
+.hero-name {
+  font-size: clamp(44px, 6vw, 76px);
+  font-weight: 700; line-height: 1.05;
+  letter-spacing: -1.5px; color: var(--white);
+  margin-bottom: 20px;
+  animation: fadeUp 0.65s 0.08s ease both;
+}
+.hero-name .dim {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(148,163,210,0.25);
+}
+
+/* ── THE KEY LINE ── */
+.hero-role {
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 400; color: var(--text2);
+  margin-bottom: 28px; line-height: 1.5;
+  animation: fadeUp 0.65s 0.14s ease both;
+}
+.hero-role strong {
+  color: var(--white); font-weight: 600;
+}
+.hero-role .typed-wrap {
+  display: inline;
+}
+.typed-word {
+  color: var(--purple);
+  border-bottom: 1px solid rgba(167,139,250,0.35);
+}
+.caret {
+  display: inline-block;
+  width: 2px; height: 1.1em;
+  background: var(--purple);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.9s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.hero-bio {
+  font-size: 16px; color: var(--text2); font-weight: 300;
+  line-height: 1.8; max-width: 560px; margin-bottom: 48px;
+  animation: fadeUp 0.65s 0.2s ease both;
+}
+.hero-bio strong { color: var(--text); font-weight: 500; }
+
+.hero-actions {
+  display: flex; align-items: center; gap: 16px;
+  animation: fadeUp 0.65s 0.26s ease both;
+  flex-wrap: wrap;
+}
+
+.btn-solid {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--purple); color: var(--white);
+  padding: 11px 24px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  letter-spacing: 0.2px;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px var(--purple-glow);
+}
+.btn-solid:hover {
+  background: #b89ffb;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(167,139,250,0.35);
+}
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--text2); background: transparent;
+  padding: 11px 24px; border-radius: 8px;
+  font-size: 14px; font-weight: 500; text-decoration: none;
+  border: 1px solid var(--border2);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover {
+  color: var(--white);
+  border-color: rgba(148,163,210,0.35);
+  background: rgba(255,255,255,0.04);
+}
+
+.hero-scroll-hint {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--text3);
+  font-family: 'Fira Code', monospace;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  z-index: 1; animation: fadeUp 0.7s 0.5s ease both;
+}
+.scroll-bar {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--purple), transparent);
+  animation: scrollDrop 2s ease-in-out infinite;
+}
+@keyframes scrollDrop { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION CHROME ── */
+.section-wrap {
+  position: relative; z-index: 1;
+  max-width: 1160px; margin: 0 auto;
+  padding: 0 64px;
+}
+
+.section-head {
+  display: flex; align-items: center; gap: 20px;
+  padding-top: 96px; padding-bottom: 56px;
+  border-top: 1px solid var(--border);
+}
+.sh-num {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--purple);
+  letter-spacing: 1px;
+}
+.sh-title {
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 700; color: var(--white);
+  letter-spacing: -0.5px;
+}
+.sh-rule { flex: 1; height: 1px; background: var(--border); }
+.sh-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--text3); letter-spacing: 0.5px;
+}
+
+/* ── ABOUT ── */
+.about-grid {
+  display: grid; grid-template-columns: 1.35fr 1fr;
+  gap: 72px; padding-bottom: 96px; align-items: start;
+}
+
+.about-copy p {
+  font-size: 16px; color: var(--text2); font-weight: 300;
+  line-height: 1.85; margin-bottom: 18px;
+}
+.about-copy p strong { color: var(--text); font-weight: 500; }
+
+.about-highlight {
+  margin: 30px 0;
+  padding: 20px 24px;
+  background: var(--purple-soft);
+  border: 1px solid rgba(167,139,250,0.14);
+  border-left: 3px solid var(--purple);
+  border-radius: 0 8px 8px 0;
+  font-size: 15px; color: var(--text); font-style: italic;
+  line-height: 1.65;
+}
+
+.about-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.about-card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--text3); letter-spacing: 0.8px;
+}
+.about-card-header span { color: var(--purple); }
+.info-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.info-row:last-child { border-bottom: none; }
+.info-row:hover { background: rgba(255,255,255,0.02); }
+.info-key {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--text3); letter-spacing: 0.5px;
+}
+.info-val {
+  font-size: 13px; color: var(--text); font-weight: 500; text-align: right;
+}
+.info-val.open { color: var(--green); }
+
+/* ── PROJECTS ── */
+.proj-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 32px; gap: 16px; flex-wrap: wrap;
+}
+.proj-toolbar p {
+  font-size: 14px; color: var(--text3);
+  font-family: 'Fira Code', monospace; letter-spacing: 0.3px;
+}
+.filter-row { display: flex; gap: 6px; }
+.filt {
+  background: none; border: 1px solid var(--border);
+  color: var(--text3); font-size: 12px; font-family: 'Fira Code', monospace;
+  padding: 5px 14px; border-radius: 6px; cursor: pointer;
+  transition: all 0.18s; letter-spacing: 0.3px;
+}
+.filt:hover, .filt.on {
+  background: var(--purple-soft);
+  border-color: rgba(167,139,250,0.35);
+  color: var(--purple);
+}
+
+.proj-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 20px; padding-bottom: 96px;
+}
+
+.proj-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  position: relative; overflow: hidden;
+  cursor: default;
+}
+.proj-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--purple), var(--violet));
+  opacity: 0; transition: opacity 0.3s;
+}
+.proj-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+}
+.proj-card:hover::after { opacity: 1; }
+
+.proj-card-top {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+}
+.pc-num {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--text3); letter-spacing: 0.5px;
+}
+.pc-type {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--purple);
+  background: var(--purple-soft);
+  border: 1px solid rgba(167,139,250,0.14);
+  padding: 3px 10px; border-radius: 4px;
+  white-space: nowrap;
+}
+
+.pc-title {
+  font-size: 18px; font-weight: 700; color: var(--white);
+  letter-spacing: -0.3px; line-height: 1.2;
+}
+.pc-desc {
+  font-size: 13px; color: var(--text2); line-height: 1.7; font-weight: 300;
+}
+
+.pc-bullets { list-style: none; }
+.pc-bullets li {
+  font-size: 12.5px; color: var(--text3); line-height: 1.6;
+  padding: 3px 0 3px 16px; position: relative;
+}
+.pc-bullets li::before {
+  content: '▸'; position: absolute; left: 0;
+  color: var(--purple); font-size: 9px; top: 5px;
+}
+
+.pc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.pc-tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--text3);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  padding: 3px 9px; border-radius: 4px;
+}
+
+.pc-links {
+  display: flex; gap: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.pc-link {
+  display: flex; align-items: center; gap: 5px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--text3); text-decoration: none;
+  letter-spacing: 0.3px; transition: color 0.2s;
+}
+.pc-link:hover { color: var(--purple); }
+
+/* ── SKILLS ── */
+.skills-strip {
+  overflow: hidden; margin-bottom: 48px;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+.skills-track {
+  display: flex; gap: 10px; width: max-content;
+  animation: slide 30s linear infinite;
+}
+@keyframes slide { to { transform: translateX(-50%); } }
+.s-chip {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; padding: 7px 16px;
+  font-family: 'Fira Code', monospace; font-size: 12px; color: var(--text3);
+  white-space: nowrap; letter-spacing: 0.3px;
+}
+
+.skills-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; padding-bottom: 96px;
+}
+.skill-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.skill-box:hover {
+  border-color: var(--border2);
+  background: var(--bg3);
+}
+.skb-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+}
+.skb-ico {
+  width: 30px; height: 30px; border-radius: 7px;
+  background: var(--purple-soft); border: 1px solid rgba(167,139,250,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.skb-name {
+  font-size: 14px; font-weight: 600; color: var(--text);
+}
+.skb-sub {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px; color: var(--text3);
+  margin-bottom: 16px; letter-spacing: 0.3px;
+}
+.skb-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.skb-tag {
+  font-size: 12px; font-weight: 400; color: var(--text2);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  padding: 4px 10px; border-radius: 5px;
+  transition: all 0.15s;
+}
+.skb-tag:hover {
+  background: var(--purple-soft);
+  border-color: rgba(167,139,250,0.25);
+  color: var(--violet);
+}
+
+/* ── CONTACT ── */
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; padding-bottom: 96px; align-items: start;
+}
+.contact-left h3 {
+  font-size: 26px; font-weight: 700; color: var(--white);
+  letter-spacing: -0.4px; margin-bottom: 14px; line-height: 1.25;
+}
+.contact-left p {
+  font-size: 15px; color: var(--text2); font-weight: 300;
+  line-height: 1.8; margin-bottom: 36px;
+}
+.channel-list { display: flex; flex-direction: column; }
+.channel {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 0; border-bottom: 1px solid var(--border);
+  text-decoration: none; transition: padding-left 0.2s;
+}
+.channel:first-child { border-top: 1px solid var(--border); }
+.channel:hover { padding-left: 6px; }
+.ch-left { display: flex; align-items: center; gap: 14px; }
+.ch-ico {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: var(--purple-soft); border: 1px solid rgba(167,139,250,0.12);
+  display: flex; align-items: center; justify-content: center;
+}
+.ch-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.8px;
+}
+.ch-val { font-size: 14px; color: var(--text); font-weight: 500; margin-top: 1px; }
+.ch-arrow {
+  color: var(--text3); transition: color 0.2s, transform 0.2s;
+}
+.channel:hover .ch-arrow { color: var(--purple); transform: translateX(4px); }
+
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cf-group { display: flex; flex-direction: column; gap: 7px; }
+.cf-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.8px;
+}
+.cf-input, .cf-area {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 11px 15px;
+  color: var(--text); font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  outline: none; resize: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.cf-input:focus, .cf-area:focus {
+  border-color: rgba(167,139,250,0.45);
+  box-shadow: 0 0 0 3px rgba(167,139,250,0.08);
+}
+.cf-input::placeholder, .cf-area::placeholder { color: var(--text3); }
+.cf-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  align-self: flex-start;
+  background: var(--purple); color: var(--white);
+  border: none; border-radius: 8px;
+  padding: 12px 26px; font-size: 14px; font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer; letter-spacing: 0.2px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 18px var(--purple-glow);
+}
+.cf-btn:hover {
+  background: #b89ffb;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(167,139,250,0.35);
+}
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 28px 64px;
+  max-width: 1160px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-left {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--text3); letter-spacing: 0.3px;
+}
+.footer-left strong { color: var(--text2); }
+.footer-right { display: flex; gap: 20px; }
+.footer-right a {
+  font-size: 12px; color: var(--text3); text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-right a:hover { color: var(--purple); }
+
+/* ── REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  nav { padding: 0 24px; }
+  #hero { padding: 100px 24px 80px; }
+  .section-wrap { padding: 0 24px; }
+  footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .skills-grid { grid-template-columns: 1fr; }
+  .cf-row { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+
+/* ── EXPERIENCE TIMELINE ── */
+.exp-layout { padding-bottom: 96px; }
+
+.exp-entry {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0 48px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.exp-entry:first-child { border-top: 1px solid var(--border); }
+
+.exp-left { padding-top: 4px; }
+
+.exp-date {
+  font-family: 'Fira Code', monospace;
+  font-size: 12px; color: var(--purple);
+  letter-spacing: 0.3px; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+.exp-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--purple); flex-shrink: 0;
+  box-shadow: 0 0 8px var(--purple-glow);
+}
+.exp-dot.active {
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(74,222,128,0.5);
+  animation: pulse 2.5s infinite;
+}
+.exp-location {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--text3);
+  letter-spacing: 0.3px;
+}
+
+.exp-company {
+  font-size: 20px; font-weight: 700; color: var(--white);
+  letter-spacing: -0.3px; margin-bottom: 4px; line-height: 1.2;
+}
+.exp-role {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; color: var(--purple);
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.exp-bullets { list-style: none; }
+.exp-bullets li {
+  font-size: 14px; color: var(--text2); font-weight: 300;
+  line-height: 1.7; padding: 4px 0 4px 20px; position: relative;
+}
+.exp-bullets li::before {
+  content: '↳'; position: absolute; left: 0;
+  color: var(--purple); font-size: 12px; top: 5px; opacity: 0.7;
+}
+
+@media (max-width: 760px) {
+  .exp-entry { grid-template-columns: 1fr; gap: 16px; }
+  .exp-left { display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#hero" class="nav-logo"><span class="hi">ada</span>.açıkyol</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-badge">open to work</div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-content">
+
+    <div class="hero-tag">
+      <span>//</span> Software Engineering Student · Potsdam, Germany
+    </div>
+
+    <h1 class="hero-name">
+      Ada Alkım<br>
+      <span class="dim">Açıkyol</span>
+    </h1>
+
+    <div class="hero-role">
+      Interested in <span class="typed-wrap"><span class="typed-word" id="typed-word"></span><span class="caret"></span></span>
+    </div>
+
+    <p class="hero-bio">
+      Software Engineering student at UE Applied Sciences, co-founder of <strong>Taply</strong>, which is an AI-powered fintech startup. I build real products: from automotive diagnostic tools and firmware testing frameworks to full-stack web apps and mobile experiences.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#projects" class="btn-solid">
+        View Projects
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="mailto:adaalkim@gmail.com" class="btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Get in touch
+      </a>
+      <a href="https://github.com/adaalkimacikyoll" class="btn-ghost" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-bar"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<div class="section-wrap" id="about">
+  <div class="section-head reveal">
+    <span class="sh-num">01</span>
+    <h2 class="sh-title">About me</h2>
+    <div class="sh-rule"></div>
+    <span class="sh-label">who I am</span>
+  </div>
+
+  <div class="about-grid reveal">
+    <div class="about-copy">
+      <p>
+        I'm a <strong>Software Engineering student</strong> at the University of Europe for Applied Sciences in Potsdam, with a focus on AI-powered applications, embedded systems validation and full-stack development.
+      </p>
+      <blockquote class="about-highlight">
+        As CEO and co-founder of <strong>Taply</strong>, I lead development of an AI-powered expense splitting platform, defining architecture, coordinating the team and shipping features to users interface.
+      </blockquote>
+      <p>
+        My technical work spans CAN bus diagnostic tools for automotive ECU testing, automated firmware regression frameworks and full-stack apps with <strong>multi-language AI support</strong>. I build things that solve problems people actually have.
+      </p>
+      <p>
+        Outside of engineering I served as a Peer Leader at UE Applied Sciences, supporting onboarding and mentoring of new students, building <strong>communication and leadership skills</strong> alongside the technical ones. I currently also work at the <strong>UE Service Center</strong>, staying closely connected to the university community.
+      </p>
+    </div>
+
+    <div>
+      <div class="about-card">
+        <div class="about-card-header">// <span>ada.json</span></div>
+        <div class="info-row">
+          <span class="info-key">status</span>
+          <span class="info-val open">open to work ✓</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">location</span>
+          <span class="info-val">Potsdam, Germany</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">university</span>
+          <span class="info-val">UE Applied Sciences</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">degree</span>
+          <span class="info-val">B.Sc. Software Eng.</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">startup</span>
+          <span class="info-val">CEO @ Taply</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">english</span>
+          <span class="info-val">C1 – Advanced</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">german</span>
+          <span class="info-val">A1 – Beginner</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">looking for</span>
+          <span class="info-val">Internship / Junior role</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROJECTS ── -->
+<div class="section-wrap" id="projects">
+  <div class="section-head reveal">
+    <span class="sh-num">02</span>
+    <h2 class="sh-title">Projects</h2>
+    <div class="sh-rule"></div>
+    <span class="sh-label">things I've built</span>
+  </div>
+
+  <div class="proj-toolbar reveal">
+    <p>// 6 projects · real problems · real solutions</p>
+    <div class="filter-row">
+      <button class="filt on" onclick="filterProj('all',this)">All</button>
+      <button class="filt" onclick="filterProj('ai',this)">AI</button>
+      <button class="filt" onclick="filterProj('fullstack',this)">Full-Stack</button>
+      <button class="filt" onclick="filterProj('embedded',this)">Embedded</button>
+    </div>
+  </div>
+
+  <div class="proj-grid reveal" id="proj-grid">
+
+    <div class="proj-card" data-cat="embedded">
+      <div class="proj-card-top">
+        <span class="pc-num">01</span>
+        <span class="pc-type">Embedded · CLI</span>
+      </div>
+      <div class="pc-title">CAN Bus Analyzer</div>
+      <p class="pc-desc">Production-ready diagnostic tool for parsing and analyzing CAN bus log files used in automotive ECU communication.</p>
+      <ul class="pc-bullets">
+        <li>Detects anomalies: flooding, unknown IDs, and signal dropouts</li>
+        <li>Generates structured JSON and visual HTML diagnostic reports</li>
+        <li>Dockerized with full test coverage — reflects real ECU testing workflows</li>
+      </ul>
+      <div class="pc-tags">
+        <span class="pc-tag">Python</span><span class="pc-tag">Docker</span><span class="pc-tag">CLI</span><span class="pc-tag">Automotive</span>
+      </div>
+      <div class="pc-links">
+        <a href="https://github.com/adaalkimacikyoll" class="pc-link" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          Source
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="embedded">
+      <div class="proj-card-top">
+        <span class="pc-num">02</span>
+        <span class="pc-type">Embedded · DevOps</span>
+      </div>
+      <div class="pc-title">Firmware Regression Framework</div>
+      <p class="pc-desc">Automated regression testing framework for validating embedded firmware updates across CI pipelines.</p>
+      <ul class="pc-bullets">
+        <li>Binary parsing and SHA256 integrity verification per firmware package</li>
+        <li>Automated Pytest pipelines for continuous firmware validation</li>
+        <li>Dockerized environment for fully reproducible CI-based testing</li>
+      </ul>
+      <div class="pc-tags">
+        <span class="pc-tag">Python</span><span class="pc-tag">Pytest</span><span class="pc-tag">Docker</span><span class="pc-tag">CI/CD</span>
+      </div>
+      <div class="pc-links">
+        <a href="https://github.com/adaalkimacikyoll" class="pc-link" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          Source
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="ai">
+      <div class="proj-card-top">
+        <span class="pc-num">03</span>
+        <span class="pc-type">AI · Mobile · Startup</span>
+      </div>
+      <div class="pc-title">Taply — AI Payment Splitting</div>
+      <p class="pc-desc">Co-founded fintech mobile app that removes friction from shared expenses — from dinner bills to group travel.</p>
+      <ul class="pc-bullets">
+        <li>AI-powered receipt scanning with automatic cost splitting</li>
+        <li>Real-time payment notifications and smart loyalty rewards</li>
+        <li>Scalable backend architecture serving a live product</li>
+      </ul>
+      <div class="pc-tags">
+        <span class="pc-tag">Flutter</span><span class="pc-tag">Dart</span><span class="pc-tag">AI</span><span class="pc-tag">Fintech</span>
+      </div>
+      <div class="pc-links">
+        <a href="https://github.com/adaalkimacikyoll" class="pc-link" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          Source
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="ai">
+      <div class="proj-card-top">
+        <span class="pc-num">04</span>
+        <span class="pc-type">AI · Full-Stack</span>
+      </div>
+      <div class="pc-title">Dilo — AI Emotional Support</div>
+      <p class="pc-desc">Full-stack mental wellness app addressing the accessibility gap in emotional support — built when therapy isn't available.</p>
+      <ul class="pc-bullets">
+        <li>Dual modes: friendly companion and psychologist persona</li>
+        <li>Mood-based recommendations with 7-language support</li>
+        <li>Built with React, TypeScript, Vite, and Tailwind CSS</li>
+      </ul>
+      <div class="pc-tags">
+        <span class="pc-tag">React</span><span class="pc-tag">TypeScript</span><span class="pc-tag">Vite</span><span class="pc-tag">AI</span>
+      </div>
+      <div class="pc-links">
+        <a href="https://github.com/adaalkimacikyoll" class="pc-link" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          Source
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="fullstack">
+      <div class="proj-card-top">
+        <span class="pc-num">05</span>
+        <span class="pc-type">Full-Stack</span>
+      </div>
+      <div class="pc-title">EduCampus</div>
+      <p class="pc-desc">Unified student collaboration platform — one place for tasks, resource sharing, and academic teamwork.</p>
+      <ul class="pc-bullets">
+        <li>Task management, resource sharing, and real-time collaboration</li>
+        <li>Scalable component architecture for multi-university use</li>
+        <li>Built with React, TypeScript, Tailwind CSS, and Vite</li>
+      </ul>
+      <div class="pc-tags">
+        <span class="pc-tag">React</span><span class="pc-tag">TypeScript</span><span class="pc-tag">Tailwind</span><span class="pc-tag">Vite</span>
+      </div>
+      <div class="pc-links">
+        <a href="https://github.com/adaalkimacikyoll" class="pc-link" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          Source
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card" data-cat="fullstack">
+      <div class="proj-card-top">
+        <span class="pc-num">06</span>
+        <span class="pc-type">Desktop · OOP</span>
+      </div>
+      <div class="pc-title">Scientific Calculator</div>
+      <p class="pc-desc">Java-based GUI calculator with full scientific operations — logs, trig, and more — on a clean OOP architecture.</p>
+      <ul class="pc-bullets">
+        <li>Scientific operations: logarithmic, trigonometric, and standard</li>
+        <li>Clean OOP design separating logic from presentation layer</li>
+        <li>Java Swing GUI with keyboard and mouse support</li>
+      </ul>
+      <div class="pc-tags">
+        <span class="pc-tag">Java</span><span class="pc-tag">OOP</span><span class="pc-tag">Swing</span>
+      </div>
+      <div class="pc-links">
+        <a href="https://github.com/adaalkimacikyoll" class="pc-link" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          Source
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── EXPERIENCE ── -->
+<div class="section-wrap" id="experience">
+  <div class="section-head reveal">
+    <span class="sh-num">03</span>
+    <h2 class="sh-title">Experience</h2>
+    <div class="sh-rule"></div>
+    <span class="sh-label">work & leadership</span>
+  </div>
+
+  <div class="exp-layout reveal">
+
+    <div class="exp-entry">
+      <div class="exp-left">
+        <div class="exp-date">
+          <span class="exp-dot active"></span>
+          Nov 2024 – Present
+        </div>
+        <div class="exp-location">Berlin</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-company">Taply</div>
+        <div class="exp-role">Startup CEO & Co-Founder</div>
+        <ul class="exp-bullets">
+          <li>Leading development of an AI-powered expense-splitting platform from the ground up</li>
+          <li>Defining product architecture and coordinating development processes across the team</li>
+          <li>Managing full product lifecycle from ideation to live deployment</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-left">
+        <div class="exp-date">
+          <span class="exp-dot active"></span>
+          Mar 2026 – Present
+        </div>
+        <div class="exp-location">Potsdam</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-company">University of Europe for Applied Sciences</div>
+        <div class="exp-role">Student Service and Activities Coordinator · Part-time</div>
+        <ul class="exp-bullets">
+          <li>Acting as the primary bridge between students and university departments, ensuring information flows clearly and efficiently</li>
+          <li>Supporting students in navigating university processes, resolving issues and answering queries</li>
+          <li>Coordinating student activities and facilitating communication across services</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-entry">
+      <div class="exp-left">
+        <div class="exp-date">
+          <span class="exp-dot"></span>
+          Mar 2025 – Mar 2026
+        </div>
+        <div class="exp-location">Potsdam</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-company">University of Europe for Applied Sciences</div>
+        <div class="exp-role">Peer Leader</div>
+        <ul class="exp-bullets">
+          <li>Primary point of contact for inquiries about university and student experience</li>
+          <li>Fostered meaningful social engagement and networking opportunities for new students</li>
+          <li>Led planning and execution of campus and off-campus events, including orientation</li>
+          <li>Collaborated with leadership through regular meetings and strategic task fulfilment</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ── SKILLS ── -->
+<div class="section-wrap" id="skills">
+  <div class="section-head reveal">
+    <span class="sh-num">04</span>
+    <h2 class="sh-title">Skills</h2>
+    <div class="sh-rule"></div>
+    <span class="sh-label">tech stack</span>
+  </div>
+
+  <div class="skills-strip reveal">
+    <div class="skills-track">
+      <span class="s-chip">Python</span><span class="s-chip">TypeScript</span>
+      <span class="s-chip">Java</span><span class="s-chip">JavaScript</span>
+      <span class="s-chip">Dart</span><span class="s-chip">React.js</span>
+      <span class="s-chip">Flutter</span><span class="s-chip">Tailwind CSS</span>
+      <span class="s-chip">Docker</span><span class="s-chip">Git</span>
+      <span class="s-chip">Linux</span><span class="s-chip">PostgreSQL</span>
+      <span class="s-chip">CI/CD</span><span class="s-chip">Figma</span>
+      <span class="s-chip">Pytest</span><span class="s-chip">Vite</span>
+      <span class="s-chip">Python</span><span class="s-chip">TypeScript</span>
+      <span class="s-chip">Java</span><span class="s-chip">JavaScript</span>
+      <span class="s-chip">Dart</span><span class="s-chip">React.js</span>
+      <span class="s-chip">Flutter</span><span class="s-chip">Tailwind CSS</span>
+      <span class="s-chip">Docker</span><span class="s-chip">Git</span>
+      <span class="s-chip">Linux</span><span class="s-chip">PostgreSQL</span>
+      <span class="s-chip">CI/CD</span><span class="s-chip">Figma</span>
+      <span class="s-chip">Pytest</span><span class="s-chip">Vite</span>
+    </div>
+  </div>
+
+  <div class="skills-grid reveal">
+    <div class="skill-box">
+      <div class="skb-head"><div class="skb-ico">💻</div><span class="skb-name">Languages</span></div>
+      <div class="skb-sub">core programming</div>
+      <div class="skb-tags">
+        <span class="skb-tag">Python</span><span class="skb-tag">Java</span>
+        <span class="skb-tag">TypeScript</span><span class="skb-tag">JavaScript</span>
+        <span class="skb-tag">Dart</span>
+      </div>
+    </div>
+    <div class="skill-box">
+      <div class="skb-head"><div class="skb-ico">📱</div><span class="skb-name">Frontend & Mobile</span></div>
+      <div class="skb-sub">client & mobile</div>
+      <div class="skb-tags">
+        <span class="skb-tag">React.js</span><span class="skb-tag">Flutter</span>
+        <span class="skb-tag">Vite</span><span class="skb-tag">Tailwind CSS</span>
+      </div>
+    </div>
+    <div class="skill-box">
+      <div class="skb-head"><div class="skb-ico">☁️</div><span class="skb-name">DevOps & CI</span></div>
+      <div class="skb-sub">infrastructure</div>
+      <div class="skb-tags">
+        <span class="skb-tag">Docker</span><span class="skb-tag">Git</span>
+        <span class="skb-tag">Linux</span><span class="skb-tag">CI/CD</span>
+        <span class="skb-tag">Pytest</span>
+      </div>
+    </div>
+    <div class="skill-box">
+      <div class="skb-head"><div class="skb-ico">🗄️</div><span class="skb-name">Databases & Tools</span></div>
+      <div class="skb-sub">storage & design</div>
+      <div class="skb-tags">
+        <span class="skb-tag">PostgreSQL</span><span class="skb-tag">VirtualBox</span>
+        <span class="skb-tag">Figma</span>
+      </div>
+    </div>
+    <div class="skill-box">
+      <div class="skb-head"><div class="skb-ico">🖥️</div><span class="skb-name">Operating Systems</span></div>
+      <div class="skb-sub">environments</div>
+      <div class="skb-tags">
+        <span class="skb-tag">Ubuntu</span><span class="skb-tag">Debian</span>
+        <span class="skb-tag">macOS</span><span class="skb-tag">Windows</span>
+      </div>
+    </div>
+    <div class="skill-box">
+      <div class="skb-head"><div class="skb-ico">🤝</div><span class="skb-name">Leadership</span></div>
+      <div class="skb-sub">soft skills</div>
+      <div class="skb-tags">
+        <span class="skb-tag">Team Leadership</span><span class="skb-tag">Public Speaking</span>
+        <span class="skb-tag">Cross-functional</span><span class="skb-tag">Conflict Resolution</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONTACT ── -->
+<div class="section-wrap" id="contact">
+  <div class="section-head reveal">
+    <span class="sh-num">05</span>
+    <h2 class="sh-title">Contact</h2>
+    <div class="sh-rule"></div>
+    <span class="sh-label">get in touch</span>
+  </div>
+
+  <div class="contact-grid reveal">
+    <div class="contact-left">
+      <h3>Let's build something together.</h3>
+      <p>I'm actively looking for internships and junior opportunities where I can contribute quickly and grow with a strong engineering team. Whether it's an internship offer, collaboration, or just a conversation — feel free to reach out.</p>
+      <div class="channel-list">
+        <a href="mailto:adaalkim@gmail.com" class="channel">
+          <div class="ch-left">
+            <div class="ch-ico">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bba8fc" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="ch-label">Email</div>
+              <div class="ch-val">adaalkim@gmail.com</div>
+            </div>
+          </div>
+          <svg class="ch-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/ada-alkım-açıkyol-a398a8282" class="channel" target="_blank">
+          <div class="ch-left">
+            <div class="ch-ico">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#bba8fc"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </div>
+            <div>
+              <div class="ch-label">LinkedIn</div>
+              <div class="ch-val">ada-alkım-açıkyol</div>
+            </div>
+          </div>
+          <svg class="ch-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://github.com/adaalkimacikyoll" class="channel" target="_blank">
+          <div class="ch-left">
+            <div class="ch-ico">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#bba8fc"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+            </div>
+            <div>
+              <div class="ch-label">GitHub</div>
+              <div class="ch-val">adaalkimacikyoll</div>
+            </div>
+          </div>
+          <svg class="ch-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="cf-row">
+        <div class="cf-group">
+          <label class="cf-label">Name</label>
+          <input class="cf-input" type="text" placeholder="Your name">
+        </div>
+        <div class="cf-group">
+          <label class="cf-label">Email</label>
+          <input class="cf-input" type="email" placeholder="your@email.com">
+        </div>
+      </div>
+      <div class="cf-group">
+        <label class="cf-label">Subject</label>
+        <input class="cf-input" type="text" placeholder="Internship offer, collaboration...">
+      </div>
+      <div class="cf-group">
+        <label class="cf-label">Message</label>
+        <textarea class="cf-area" rows="5" placeholder="Hi Ada, I wanted to..."></textarea>
+      </div>
+      <button class="cf-btn">
+        Send message
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-left">
+    <strong>Ada Alkım Açıkyol</strong> · © 2026 · Built with code
+  </div>
+  <div class="footer-right">
+    <a href="#hero">Back to top ↑</a>
+    <a href="https://github.com/adaalkimacikyoll" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/ada-alkım-açıkyol-a398a8282" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+// ── TYPING EFFECT ──
+const words = ['automotive software.', 'firmware regression testing.', 'embedded systems.', 'AI-powered products.', 'full-stack development.'];
+let wi = 0, ci = 0, deleting = false;
+const el = document.getElementById('typed-word');
+
+function type() {
+  const w = words[wi];
+  if (!deleting) {
+    el.textContent = w.slice(0, ++ci);
+    if (ci === w.length) { deleting = true; setTimeout(type, 1800); return; }
+  } else {
+    el.textContent = w.slice(0, --ci);
+    if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; setTimeout(type, 300); return; }
+  }
+  setTimeout(type, deleting ? 40 : 70);
+}
+type();
+
+// ── SCROLL REVEAL ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ── PROJECT FILTER ──
+function filterProj(cat, btn) {
+  document.querySelectorAll('.filt').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.proj-card').forEach(c => {
+    const show = cat === 'all' || c.dataset.cat === cat;
+    c.style.opacity = show ? '1' : '0.18';
+    c.style.pointerEvents = show ? '' : 'none';
+    c.style.transform = show ? '' : 'scale(0.98)';
+    c.style.transition = 'opacity 0.3s, transform 0.3s';
+  });
+}
+
+// ── NAV HIGHLIGHT ──
+const secs = document.querySelectorAll('[id]');
+const navAs = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  navAs.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--text)' : '';
+    a.style.background = a.getAttribute('href') === '#' + cur ? 'rgba(255,255,255,0.05)' : '';
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
