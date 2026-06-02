@@ -1,4 +1,4 @@
-@@ -0,0 +1,6 @@
+@@ -0,0 +1,7 @@
 {
   "routes": [
     { "src": "/admin", "dest": "/admin.html" },
