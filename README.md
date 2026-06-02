@@ -1,8 +1,8 @@
 # adaacikyol.dev
 
-Readme · MDCopyAda Alkım Açıkyol — Personal Portfolio
+Ada Alkım Açıkyol — Personal Portfolio
 A personal portfolio website built from scratch with vanilla HTML, CSS, and JavaScript. No frameworks, no dependencies — just clean code.
-🌐 Live site: adaalkimacikyoll.github.io
+
 
 About
 This is my personal portfolio showcasing my projects, experience, and skills as a Software Engineering student at the University of Europe for Applied Sciences in Potsdam. I'm also the co-founder and CEO of Taply, an AI-powered fintech startup.
