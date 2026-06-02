@@ -1,2 +1,2 @@
-# adaaciikyol.dev
+# adaacikyol.dev
 Portfolio Website
