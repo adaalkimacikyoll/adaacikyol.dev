@@ -1,6 +1,6 @@
 # adaacikyol.dev
 
-Tabii, direkt kopyalayabileceğin hali:
+
 
 ```markdown
 # Ada Alkım Açıkyol — Personal Portfolio
