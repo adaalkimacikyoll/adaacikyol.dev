@@ -1,0 +1,12 @@
+{
+  "name": "adaacikyol-dev",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Personal portfolio of Ada Alkım Açıkyol",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  }
+}

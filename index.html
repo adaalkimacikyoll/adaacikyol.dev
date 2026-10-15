@@ -561,6 +561,11 @@ nav {
   box-shadow: 0 8px 26px rgba(167,139,250,0.35);
 }
 
+.cf-btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
+.cf-status { font-size: 13px; min-height: 18px; margin: 0; }
+.cf-status.ok { color: #6ee7b7; }
+.cf-status.err { color: #fca5a5; }
+
 /* ── FOOTER ── */
 footer {
   position: relative; z-index: 1;
@@ -1166,30 +1171,33 @@ footer {
       </div>
     </div>
 
-    <div class="contact-form">
+    <form class="contact-form" id="contactForm" novalidate>
       <div class="cf-row">
         <div class="cf-group">
-          <label class="cf-label">Name</label>
-          <input class="cf-input" type="text" placeholder="Your name">
+          <label class="cf-label" for="cf-name">Name</label>
+          <input class="cf-input" id="cf-name" name="name" type="text" placeholder="Your name" required maxlength="100" autocomplete="name">
         </div>
         <div class="cf-group">
-          <label class="cf-label">Email</label>
-          <input class="cf-input" type="email" placeholder="your@email.com">
+          <label class="cf-label" for="cf-email">Email</label>
+          <input class="cf-input" id="cf-email" name="email" type="email" placeholder="your@email.com" required maxlength="200" autocomplete="email">
         </div>
       </div>
       <div class="cf-group">
-        <label class="cf-label">Subject</label>
-        <input class="cf-input" type="text" placeholder="Internship offer, collaboration...">
+        <label class="cf-label" for="cf-subject">Subject</label>
+        <input class="cf-input" id="cf-subject" name="subject" type="text" placeholder="Internship offer, collaboration..." maxlength="200">
       </div>
       <div class="cf-group">
-        <label class="cf-label">Message</label>
-        <textarea class="cf-area" rows="5" placeholder="Hi Ada, I wanted to..."></textarea>
+        <label class="cf-label" for="cf-message">Message</label>
+        <textarea class="cf-area" id="cf-message" name="message" rows="5" placeholder="Hi Ada, I wanted to..." required maxlength="5000"></textarea>
       </div>
-      <button class="cf-btn">
-        Send message
+      <!-- honeypot: hidden from humans, bots fill it -->
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <button class="cf-btn" type="submit">
+        <span class="cf-btn-text">Send message</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
       </button>
-    </div>
+      <p class="cf-status" id="cfStatus" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </div>
 
@@ -1254,6 +1262,50 @@ window.addEventListener('scroll', () => {
     a.style.background = a.getAttribute('href') === '#' + cur ? 'rgba(255,255,255,0.05)' : '';
   });
 }, { passive: true });
+
+// ── CONTACT FORM ──
+(function () {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  const btn = form.querySelector('.cf-btn');
+  const btnText = form.querySelector('.cf-btn-text');
+  const status = document.getElementById('cfStatus');
+
+  const show = (msg, type) => { status.textContent = msg; status.className = 'cf-status ' + type; };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    if (!data.name.trim() || !data.email.trim() || !data.message.trim()) {
+      return show('Please fill in your name, email and message.', 'err');
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+      return show('Please enter a valid email address.', 'err');
+    }
+
+    btn.disabled = true;
+    btnText.textContent = 'Sending...';
+    show('', '');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || !out.ok) throw new Error(out.error || 'Something went wrong.');
+      form.reset();
+      show("Thanks! Your message was sent — check your inbox for a confirmation.", 'ok');
+    } catch (err) {
+      show((err.message || 'Something went wrong.') + ' You can also email adaalkim@gmail.com directly.', 'err');
+    } finally {
+      btn.disabled = false;
+      btnText.textContent = 'Send message';
+    }
+  });
+})();
 </script>
 </body>
 </html>
