@@ -80,25 +80,33 @@ module.exports = async (req, res) => {
         </div>`,
     });
 
-    // 2) Auto-reply to the visitor
+    // 2) Auto-reply to the visitor (formal confirmation)
+    const subjectLine = subject || 'your message';
     await transporter.sendMail({
       from: `"Ada Alkım Açıkyol" <${GMAIL_USER}>`,
       to: email,
       replyTo: GMAIL_USER,
-      subject: `Thanks for reaching out, ${name}!`,
+      subject: `Message received: ${subjectLine}`,
       text:
-        `Hi ${name},\n\n` +
-        `Thank you for your message — I've received it and will get back to you as soon as possible, usually within a few days.\n\n` +
-        `Your message:\n"${message}"\n\n` +
-        `Best regards,\nAda Alkım Açıkyol\nhttps://adaacikyol.dev`,
+        `Dear ${name},\n\n` +
+        `Thank you for contacting me through my website. This is an automatic confirmation that your message regarding "${subjectLine}" has been received.\n\n` +
+        `I will review it carefully and respond within 2-3 business days. Should your inquiry be time-sensitive, you are welcome to reply directly to this email.\n\n` +
+        `For your reference, a copy of your message is included below:\n\n${message}\n\n` +
+        `Kind regards,\n\nAda Alkım Açıkyol\nSoftware Engineering Student, University of Europe for Applied Sciences\nCo-founder & CEO, Taply\nhttps://adaacikyol.dev`,
       html: `
-        <div style="font-family:Arial,sans-serif;font-size:14px;color:#222;line-height:1.6">
-          <p>Hi ${safeName},</p>
-          <p>Thank you for your message — I've received it and will get back to you as soon as possible, usually within a few days.</p>
-          <p style="color:#666;margin-bottom:4px">Your message:</p>
-          <div style="padding:12px 16px;background:#f5f3ff;border-left:3px solid #a78bfa;border-radius:4px;color:#444">${safeMessage}</div>
-          <p style="margin-top:20px">Best regards,<br><strong>Ada Alkım Açıkyol</strong><br>
-          <a href="https://adaacikyol.dev" style="color:#7c5cf0">adaacikyol.dev</a></p>
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#222;line-height:1.65;max-width:600px">
+          <p>Dear ${safeName},</p>
+          <p>Thank you for contacting me through my website. This is an automatic confirmation that your message regarding <strong>${escapeHtml(subjectLine)}</strong> has been received.</p>
+          <p>I will review it carefully and respond within 2&ndash;3 business days. Should your inquiry be time-sensitive, you are welcome to reply directly to this email.</p>
+          <p style="color:#666;margin:20px 0 6px">For your reference, a copy of your message is included below:</p>
+          <div style="padding:12px 16px;background:#f7f7f9;border-left:3px solid #8b8b99;border-radius:2px;color:#444">${safeMessage}</div>
+          <p style="margin-top:24px">Kind regards,</p>
+          <p style="margin:0"><strong>Ada Alkım Açıkyol</strong><br>
+          <span style="color:#555">Software Engineering Student, University of Europe for Applied Sciences</span><br>
+          <span style="color:#555">Co-founder &amp; CEO, Taply</span><br>
+          <a href="https://adaacikyol.dev" style="color:#4a4ad0">adaacikyol.dev</a></p>
+          <hr style="border:none;border-top:1px solid #e5e5e5;margin:24px 0 10px">
+          <p style="font-size:12px;color:#999;margin:0">This is an automated message sent in response to a submission on adaacikyol.dev.</p>
         </div>`,
     });
 
