@@ -92,7 +92,7 @@ module.exports = async (req, res) => {
         `Thank you for contacting me through my website. This is an automatic confirmation that your message regarding "${subjectLine}" has been received.\n\n` +
         `I will review it carefully and respond within business days. Should your inquiry be time-sensitive, you are welcome to reply directly to this email.\n\n` +
         `For your reference, a copy of your message is included below:\n\n${message}\n\n` +
-        `Kind regards,\n\nAda Alkım Açıkyol\nSoftware Engineering Student, University of Europe for Applied Sciences\nCo-founder & CEO, Taply\nhttps://adaacikyol.dev`,
+        `Kind regards,\n\nAda Alkım Açıkyol\nSoftware Engineering Intern, University of Europe for Applied Sciences\nCo-founder & CEO, Taply\nhttps://adaacikyol.dev`,
       html: `
         <div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#222;line-height:1.65;max-width:600px">
           <p>Dear ${safeName},</p>
@@ -102,7 +102,7 @@ module.exports = async (req, res) => {
           <div style="padding:12px 16px;background:#f7f7f9;border-left:3px solid #8b8b99;border-radius:2px;color:#444">${safeMessage}</div>
           <p style="margin-top:24px">Kind regards,</p>
           <p style="margin:0"><strong>Ada Alkım Açıkyol</strong><br>
-          <span style="color:#555">Software Engineering Student, University of Europe for Applied Sciences</span><br>
+          <span style="color:#555">Software Engineering Intern, University of Europe for Applied Sciences</span><br>
           <span style="color:#555">Co-founder &amp; CEO, Taply</span><br>
           <a href="https://adaacikyol.dev" style="color:#4a4ad0">adaacikyol.dev</a></p>
           <hr style="border:none;border-top:1px solid #e5e5e5;margin:24px 0 10px">
