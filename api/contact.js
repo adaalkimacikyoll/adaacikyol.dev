@@ -3,7 +3,7 @@
 // 2) Sends an automatic confirmation reply to the visitor
 //
 // Required environment variables (Vercel → Project → Settings → Environment Variables):
-//   GMAIL_USER          e.g. adaalkim@gmail.com
+//   GMAIL_USER          e.g. ada.acikyol@gmail.com
 //   GMAIL_APP_PASSWORD  16-character Google App Password (NOT your normal password)
 // Optional:
 //   CONTACT_TO          where notifications go (defaults to GMAIL_USER)
