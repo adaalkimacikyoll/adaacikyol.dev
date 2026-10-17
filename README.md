@@ -11,7 +11,7 @@ A personal portfolio website built from scratch with vanilla HTML, CSS, and Java
 
 ## About
 
-Personal portfolio showcasing my projects, experience, and skills as a Software Engineering student at the University of Europe for Applied Sciences in Potsdam. I'm also the co-founder and CEO of **Taply**, an AI-powered fintech startup.
+Personal portfolio showcasing my projects, experience, and skills as a Software Engineering student at the University of Europe for Applied Sciences in Potsdam. I'm also the co-founder of **Taply**, an AI-powered fintech startup.
 
 ---
 
